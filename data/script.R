@@ -9,7 +9,7 @@ datas <- 2023:year(Sys.Date())
 for(i in seq_along(datas)) {
   try({tempo <- get_base_inmet(datas[i]) #Try passa pra o próximo em caso de erro.
   f <- file(sprintf("tempo_%s.csv", datas[i]), encoding = "UTF-8")
-  write.csv(tempo, f)
+  write_csv(tempo, f)
   })
 }
 
@@ -35,4 +35,4 @@ tempo <- tempo %>%
          estacao = case_when(estacao == 'Poco Verde' ~ 'Poço Verde',
                              estacao == 'Nossa Senhora Da Gloria' ~ 'Nossa Senhora da Glória',
                              TRUE ~ estacao))
-saveRDS(tempo, 'tempo.rds')
+saveRDS(tempo, 'data/tempo.rds')
