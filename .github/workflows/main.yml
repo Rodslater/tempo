@@ -20,6 +20,7 @@ jobs:
         with:
           packages: |
             any::tidyverse
+            any::lubridate
             any::rio
             url::https://github.com/filipemsc/rinmet/archive/refs/heads/master.zip, any::sessioninfo            
             
