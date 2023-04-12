@@ -1,6 +1,7 @@
 ## Preparação do histórico ## 
 library(rinmet)
 library(tidyverse)
+library(lubridate)
 library(rio)
 
 ##########
