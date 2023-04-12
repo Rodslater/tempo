@@ -4,21 +4,17 @@ library(tidyverse)
 library(lubridate)
 library(rio)
 
-arquivos_rds <- dir(pattern = ".rds")
-if (file.exists(arquivos_rds)) {
-  file.remove(arquivos_rds)
-}
-
 ##########
+#datas <- 2017:2022
 datas <- 2023:year(Sys.Date())
 for(i in seq_along(datas)) {
   try({tempo <- get_base_inmet(datas[i]) #Try passa pra o próximo em caso de erro.
-  f <- file(sprintf("tempo_%s.rds", datas[i]), encoding = "UTF-8")
-  saveRDS(tempo, f)
+  f <- file(sprintf("tempo_%s.csv", datas[i]), encoding = "UTF-8")
+  write.csv(tempo, f)
   })
 }
 
-tempo <- import_list(dir(pattern = ".rds"), rbind = TRUE, encoding = "UTF-8")
+tempo <- import_list(dir(pattern = ".csv"), rbind = TRUE, encoding = "UTF-8")
 tempo <- tempo[,c(1:3, 11, 10, 21, 22)]
 colnames(tempo) <- c("data", "hora", "precipitacao_total", "temp_min", "temp_max", "uf", "estacao")
 
@@ -38,16 +34,7 @@ tempo <- tempo %>%
                              TRUE ~ estacao))
 saveRDS(tempo, paste0("tempo_", datas[1], "a", datas[length(datas)], ".rds"))
 
-
-##########
-
-#Juntando bases
-tempo <- import_list(dir(pattern = ".rds"), rbind = TRUE)
-tempo <- tempo %>% select(-`_file`)
-
-arquivos_rds <- dir(pattern = ".rds")
+arquivos_rds <- dir(pattern = ".csv")
 if (file.exists(arquivos_rds)) {
   file.remove(arquivos_rds)
 }
-
-saveRDS(tempo, paste0("tempo_", year(min(tempo$data)), "a", year(max(tempo$data)), ".rds"))
