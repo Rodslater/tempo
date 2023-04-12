@@ -34,7 +34,7 @@ tempo <- tempo %>%
                              TRUE ~ estacao))
 saveRDS(tempo, paste0("tempo_", datas[1], "a", datas[length(datas)], ".rds"))
 
-arquivos_rds <- dir(pattern = ".csv")
-if (file.exists(arquivos_rds)) {
-  file.remove(arquivos_rds)
+arquivos_csv <- dir(pattern = ".csv")
+if (file.exists(arquivos_csv)) {
+  file.remove(arquivos_csv)
 }
