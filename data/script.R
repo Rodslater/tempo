@@ -35,4 +35,4 @@ tempo <- tempo %>%
          estacao = case_when(estacao == 'Poco Verde' ~ 'Poço Verde',
                              estacao == 'Nossa Senhora Da Gloria' ~ 'Nossa Senhora da Glória',
                              TRUE ~ estacao))
-saveRDS(tempo, 'tempo.rds')
+saveRDS(tempo, 'data/tempo.rds')
