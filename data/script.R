@@ -31,4 +31,26 @@ tempo <- tempo %>%
          estacao = case_when(estacao == 'Poco Verde' ~ 'Poço Verde',
                              estacao == 'Nossa Senhora Da Gloria' ~ 'Nossa Senhora da Glória',
                              TRUE ~ estacao))
-saveRDS(tempo, paste0("tempo_", datas[1], "a", datas[length(datas)], ".rds"))
+saveRDS(tempo, paste0("bases/tempo_", datas[1], "a", datas[length(datas)], ".rds"))
+
+arquivos_rds <- dir(pattern = ".rds")
+if (file.exists(arquivos_rds)) {
+  file.remove(arquivos_rds)
+}
+
+##########
+
+
+
+
+#Juntando bases
+
+diretorio <- getwd()
+novo_diretorio <- paste0(diretorio, "/bases/")
+setwd(novo_diretorio)
+#tempo <- import_list(dir(path = "/bases/", pattern = ".rds"), rbind = TRUE) #tá dando erro qd tenta acessar dentro da pasta. na raiz fica normal
+tempo <- import_list(dir(pattern = ".rds"), rbind = TRUE)
+tempo <- tempo %>% select(-`_file`)
+setwd(diretorio)
+
+saveRDS(tempo, paste0("tempo_", year(min(tempo$data)), "a", year(max(tempo$data)), ".rds"))
