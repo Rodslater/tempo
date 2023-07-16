@@ -4,7 +4,6 @@ library(tidyverse)
 library(lubridate)
 library(rio)
 
-memory.limit(24576)
 
 ##########
 datas <- 2023:year(Sys.Date())
